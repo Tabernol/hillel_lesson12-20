@@ -1,16 +1,13 @@
 package hw13;
 
-public class Task2 {
-    int count;
+import java.util.Arrays;
 
-    public int numIdenticalPairs(int[] nums) {
-        for (int i = 0; i < nums.length - 1; i++) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[i] == nums[j]) {
-                    count++;
-                }
-            }
+public class Task2 {
+    public int[] sortedSquares(int[] nums) {
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] *= nums[i];
         }
-        return count;
+        Arrays.sort(nums);
+        return nums;
     }
 }
