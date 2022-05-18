@@ -1,4 +1,4 @@
-package hw13;
+package hw12;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package hw13;
+package hw12;
 
 public class Task1 {
     public int numJewelsInStones(String jewels, String stones) {
