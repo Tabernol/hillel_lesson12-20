@@ -1,0 +1,47 @@
+package hw13;
+
+import java.util.Arrays;
+
+public class Task1 {
+    public void quickSort(int[] array, int low, int high) {
+        if (array.length == 0) {
+            return;
+        }
+        if (low >= high) {
+            return;
+        }
+        int middle = low + (high - low) / 2;
+        int opora = array[middle];
+
+        int i = low;
+        int j = high;
+        while (i <= j) {
+            while (array[i] < opora) {
+                i++;
+            }
+            while (array[j] > opora) {
+                j--;
+            }
+            if (i <= j) {
+                int temp = array[i];
+                array[i] = array[j];
+                array[j] = temp;
+                i++;
+                j--;
+            }
+        }
+        if (low < j)
+            quickSort(array, low, j);
+
+        if (high > i)
+            quickSort(array, i, high);
+    }
+
+    public int maxProduct(int[] nums) {
+        quickSort(nums, 0, nums.length - 1);//Your sort suggestion will be faster
+        //Arrays.sort(nums);// my last sort option
+        int firstMax = nums[nums.length - 1];
+        int secondMax = nums[nums.length - 2];
+        return (firstMax - 1) * (secondMax - 1);
+    }
+}

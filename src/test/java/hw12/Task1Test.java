@@ -1,4 +1,6 @@
-import hw13.Task1;
+package hw12;
+
+import hw12.Task1;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

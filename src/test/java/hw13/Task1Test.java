@@ -10,11 +10,11 @@ public class Task1Test {
 
     @Test
     public void maxProduct1() {
-        assertEquals(30, task.maxProduct(new int[]{2, 4, 6, 1, 7}));
+        assertEquals(30,task.maxProduct(new int[]{2,4,6,1,7}));
     }
 
     @Test
-    public void maxProduct2() {
-        assertEquals(0, task.maxProduct(new int[]{1, 1}));
+    public void maxProduct2(){
+        assertEquals(0,task.maxProduct(new int[]{1,1}));
     }
 }
