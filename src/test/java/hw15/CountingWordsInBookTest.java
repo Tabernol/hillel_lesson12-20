@@ -13,7 +13,7 @@ public class CountingWordsInBookTest {
 
     @Test
     public void countingWords() {
-        Map<String,Long> result =
+        Map<String,String> result =
                 pathToBook.countingWords(Paths.get("src\\main\\resources\\tolstoy_voyna-i-mir__xoraa_436421.txt"));
         assertEquals(false, result.isEmpty());
     }

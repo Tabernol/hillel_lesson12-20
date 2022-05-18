@@ -2,6 +2,7 @@ package hw15;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Matcher;
@@ -10,8 +11,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class CountingWordsInBook {
-    public Map<String, Long> countingWords(Path path) {
-        Map<String, Long> wordCount = null;
+    public Map<String, String> countingWords(Path path) {
+        Map<String, String> wordCount = null;
         Pattern myPattern = Pattern.compile("\\.\\w+$");
         Matcher myMatcher = myPattern.matcher(path.toString());
         myMatcher.find();
@@ -33,13 +34,10 @@ public class CountingWordsInBook {
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                     .entrySet()
                     .stream()
-                    .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                     .collect(Collectors
-                            .toMap(Map.Entry::getKey,
-                                    Map.Entry::getValue,
-                                    (e1, e2) -> e1,
-                                    LinkedHashMap::new));
+                            .toMap(k-> k.getKey(),v -> v.getValue().toString().concat("\n")));
             bw.write(String.valueOf(wordCount));
+            System.out.println(wordCount);
 
         } catch (IOException e) {
             e.printStackTrace();

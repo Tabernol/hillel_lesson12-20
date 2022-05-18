@@ -1,3 +1,5 @@
+package hw13;
+
 public class Task1 {
     public int numJewelsInStones(String jewels, String stones) {
         int amount = 0;

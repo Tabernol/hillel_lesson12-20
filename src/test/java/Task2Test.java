@@ -1,3 +1,4 @@
+import hw13.Task2;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

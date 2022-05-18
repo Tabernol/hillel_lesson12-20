@@ -1,3 +1,5 @@
+package hw13;
+
 public class Task2 {
     int count;
 
