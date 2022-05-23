@@ -7,8 +7,7 @@ public enum Command {
     READ("read"),
     EXIT("exit");
 
-    String command;
-
+    public String command;
 
     Command(String command) {
         this.command = command;
