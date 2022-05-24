@@ -6,7 +6,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class Book extends Library{
+public class Book extends Library {
     String author;
     String nameOfBook;
     String text;

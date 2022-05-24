@@ -1,21 +1,16 @@
 package hw17.services;
 
 import com.fasterxml.jackson.databind.json.JsonMapper;
-import hw17.model.Command;
-import hw17.model.Library;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import hw17.model.*;
+import java.io.*;
+import java.util.*;
 import java.util.function.Consumer;
 
-public class ServiceLibrary{
-    Boolean libraryExist;
-    static File directory = new File("src\\main\\resources\\lib.json");
+public class ServiceLibrary implements CheckAble {
+    static File directory = new File(Output.PATH_TO_LIBRARY);
     static Library library = new Library();
-    static Map<String, Consumer<Scanner>> mapCommand = new HashMap<>();
-    static CommandService commandService = new CommandService();
+    private static Map<String, Consumer<Scanner>> mapCommand = new HashMap<>();
+    private static CommandService commandService = new CommandService();
     static JsonMapper jsonMapper = new JsonMapper();
     Scanner scanner = new Scanner(System.in);
 
@@ -25,15 +20,15 @@ public class ServiceLibrary{
     }
 
     public void startLibrary() {
-        System.out.println("Command");
         String command = "";
-        while (!command.equals("exit")) {
+        while (!check(command)) {
+            Command.printDescription();
             command = scanner.nextLine().toLowerCase();
-            mapCommand.getOrDefault(command, scanner1 -> System.out.println("repeat")).accept(scanner);
+            mapCommand.getOrDefault(command, scanner1 -> System.out.println(Output.REPEAT)).accept(scanner);
         }
     }
 
-    public static void commandInitializer() {
+    private static void commandInitializer() {
         mapCommand.put(Command.SHOW.command, scanner -> commandService.show());
         mapCommand.put(Command.ADD.command, scanner -> commandService.add());
         mapCommand.put(Command.READ.command, scanner -> commandService.read());
@@ -41,26 +36,25 @@ public class ServiceLibrary{
         mapCommand.put(Command.EXIT.command, scanner -> commandService.exit());
     }
 
-    public static void makeOrReadCatalog() {
+    private static void makeOrReadCatalog() {
         try {
             directory.createNewFile();
             library = jsonMapper.readValue(directory, Library.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            library = new Library();
         }
     }
 
-    public static boolean libraryExist() {
-        return directory.exists();
+    @Override
+    public boolean check(String line) {
+        return line.equals("exit");
     }
 
     public static void main(String[] args) {
         ServiceLibrary s = new ServiceLibrary();
-        System.out.println(s.library.getCatalog());
         s.startLibrary();
 
-        // s.makeCatalog();
-
     }
+
 
 }

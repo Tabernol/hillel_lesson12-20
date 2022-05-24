@@ -1,40 +1,44 @@
 package hw17.services;
 
-import hw17.model.Book;
+import hw17.model.*;
+
 import java.io.IOException;
 
-
-public class CommandService extends ServiceLibrary implements CheckAble {
+public class CommandService extends ServiceLibrary {
     Book bookDefault = new Book("unknown", "unknown", "unknown");
 
     public void add() {
         var bookBuilder = Book.builder();
-        System.out.println("enter name a book");
+        System.out.println(Output.NAME);
         bookBuilder.nameOfBook(String.valueOf(scanner.nextLine()));
-        System.out.println("enter author of book");
+        System.out.println(Output.AUTHOR);
         bookBuilder.author(String.valueOf(scanner.nextLine())).build();
-        System.out.println("Text");
-        String line ="";
-        StringBuilder alltext = new StringBuilder();
-        while (!check(line=scanner.nextLine())){
-            alltext.append(line+"\n");
+        System.out.println(Output.TEXT);
+        String line = "";
+        StringBuilder allText = new StringBuilder();
+        while (!check(line = scanner.nextLine())) {
+            allText.append(line + "\n");
         }
-        Book book = bookBuilder.text(alltext.toString()).build();
+        Book book = bookBuilder.text(allText.toString()).build();
         library.getCatalog().put(book.getNameOfBook(), book);
         saveLibrary();
+        System.out.println(Output.ADD);
     }
 
     public void read() {
-        System.out.println("enter name of book");
+        System.out.println(Output.NAME);
         System.out.println(library.getCatalog().getOrDefault(scanner.nextLine(), bookDefault).getText());
     }
 
     public void delete() {
-        System.out.println("enter name of book");
+        System.out.println(Output.NAME);
         String line = scanner.nextLine();
         if (library.getCatalog().containsKey(line)) {
             library.getCatalog().remove(line);
             saveLibrary();
+            System.out.println(Output.DELETE);
+        } else {
+            System.out.println(bookDefault.getText());
         }
     }
 
@@ -54,9 +58,5 @@ public class CommandService extends ServiceLibrary implements CheckAble {
         }
     }
 
-    @Override
-    public boolean check(String line) {
-        return line.equals("exit");
-    }
 
 }
