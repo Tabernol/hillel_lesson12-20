@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class ServiceLibrary implements CheckAble {
-    static File directory = new File(Output.PATH_TO_LIBRARY);
+    static File directory = new File(Output.PATH + "lib.json");
     static Library library = new Library();
     private static Map<String, Consumer<Scanner>> mapCommand = new HashMap<>();
     private static CommandService commandService = new CommandService();
@@ -34,9 +34,10 @@ public class ServiceLibrary implements CheckAble {
         mapCommand.put(Command.READ.command, scanner -> commandService.read());
         mapCommand.put(Command.DELETE.command, scanner -> commandService.delete());
         mapCommand.put(Command.EXIT.command, scanner -> commandService.exit());
+        mapCommand.put(Command.SAVE.command, scanner -> commandService.saveToFile());
     }
 
-    private static void makeOrReadCatalog() {
+    public static void makeOrReadCatalog() {
         try {
             directory.createNewFile();
             library = jsonMapper.readValue(directory, Library.class);
@@ -51,9 +52,8 @@ public class ServiceLibrary implements CheckAble {
     }
 
     public static void main(String[] args) {
-        ServiceLibrary s = new ServiceLibrary();
-        s.startLibrary();
-
+        ServiceLibrary start = new ServiceLibrary();
+        start.startLibrary();
     }
 
 

@@ -2,12 +2,14 @@ package hw17.services;
 
 import hw17.model.*;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class CommandService extends ServiceLibrary {
     Book bookDefault = new Book("unknown", "unknown", "unknown");
 
-    public void add() {
+    public Book createBook() {
         var bookBuilder = Book.builder();
         System.out.println(Output.NAME);
         bookBuilder.nameOfBook(String.valueOf(scanner.nextLine()));
@@ -20,14 +22,21 @@ public class CommandService extends ServiceLibrary {
             allText.append(line + "\n");
         }
         Book book = bookBuilder.text(allText.toString()).build();
+        return book;
+    }
+
+    public String add() {
+        Book book = createBook();
         library.getCatalog().put(book.getNameOfBook(), book);
         saveLibrary();
         System.out.println(Output.ADD);
+        return Output.ADD;
     }
 
     public void read() {
         System.out.println(Output.NAME);
-        System.out.println(library.getCatalog().getOrDefault(scanner.nextLine(), bookDefault).getText());
+        String choice = scanner.nextLine();
+        System.out.println(library.getCatalog().getOrDefault(choice, bookDefault).getText());
     }
 
     public void delete() {
@@ -50,12 +59,31 @@ public class CommandService extends ServiceLibrary {
         library.getCatalog().forEach((k, v) -> System.out.println(k));
     }
 
-    private void saveLibrary() {
+    public void saveLibrary() {
         try {
             jsonMapper.writeValue(directory, library);
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void saveToFile() {
+        System.out.println(Output.NAME);
+        String choice = scanner.nextLine();
+        if (library.getCatalog().containsKey(choice)) {
+            String allText = library.getCatalog().get(choice).getText();
+            try (BufferedWriter bw = new BufferedWriter(
+                    new FileWriter(Output.PATH + choice + ".txt"))) {
+                bw.write(allText);
+                System.out.println(Output.SAVED + Output.PATH + choice + ".txt");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println(bookDefault.getText());
+        }
+
+
     }
 
 
