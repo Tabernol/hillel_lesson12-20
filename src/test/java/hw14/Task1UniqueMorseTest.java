@@ -26,6 +26,7 @@ public class Task1UniqueMorseTest {
     @Test
     public void uniqueMorseRepresentations3() {
         String[] str = new String[]{"a", "b", "c"};
-        assertEquals(3,words.uniqueMorseRepresentations(str));
+        assertEquals(3
+                ,words.uniqueMorseRepresentations(str));
     }
 }

@@ -59,9 +59,4 @@ public class MyLibrary {
         }
         return catalog;
     }
-
-    public static void main(String[] args) {
-        MyLibrary myLibrary = new MyLibrary();
-        myLibrary.startMyLibrary();
-    }
 }
