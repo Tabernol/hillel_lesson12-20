@@ -2,7 +2,8 @@ package hw17.model;
 
 import lombok.Data;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 public class Library {
